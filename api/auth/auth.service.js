@@ -1,5 +1,5 @@
 import Cryptr from 'cryptr'
-import bcryptjs from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 
 import { userService } from '../user/user.service.js'
 import { loggerService } from '../../services/logger.service.js'
