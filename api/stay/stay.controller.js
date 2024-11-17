@@ -11,9 +11,7 @@ export const stayController = {
     // removeStayMsg
 }
 
-async function getStays(req, res) {
-    console.log('im in ');
-    
+async function getStays(req, res) {    
     try {
         const filterBy = {
             place: req.query.place || '',

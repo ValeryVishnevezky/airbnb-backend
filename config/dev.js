@@ -1,4 +1,6 @@
+import { DB_CON } from "../secret.js";
+
 export default {
-    dbURL: 'mongodb://127.0.0.1:27017',
-    dbName: 'stay_db',
+    dbURL: DB_CON,
+    dbName: 'Ardnd',
 }
