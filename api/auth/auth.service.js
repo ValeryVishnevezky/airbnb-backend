@@ -1,5 +1,8 @@
 import Cryptr from 'cryptr'
 import bcryptjs from 'bcryptjs'
+import dotenv from "dotenv"
+
+dotenv.config()
 
 import { userService } from '../user/user.service.js'
 import { loggerService } from '../../services/logger.service.js'
