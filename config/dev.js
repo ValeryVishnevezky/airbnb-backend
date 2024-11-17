@@ -1,6 +1,7 @@
-import { DB_CON } from "../secret.js";
+import dotenv from "dotenv"
+dotenv.config()
 
 export default {
-    dbURL: DB_CON,
+    dbURL: process.env.MONGODB_URI,
     dbName: 'Ardnd',
 }

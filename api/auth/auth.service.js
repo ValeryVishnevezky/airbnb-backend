@@ -14,7 +14,7 @@ export const authService = {
     validateToken
 }
 
-const cryptr = new Cryptr(process.env.AUTH_KEY )
+const cryptr = new Cryptr(process.env.AUTH_KEY)
 
 async function login(username, password) {
     loggerService.debug(`auth.service - login with username: ${username}`)
