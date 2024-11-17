@@ -1,5 +1,5 @@
 import Cryptr from 'cryptr'
-import bcryptjs from 'bcryptjs'
+import bcryptjs from 'bcrypt'
 
 import { userService } from '../user/user.service.js'
 import { loggerService } from '../../services/logger.service.js'
@@ -10,8 +10,9 @@ export const authService = {
     getLoginToken,
     validateToken
 }
+const apiUrl = process.env.REACT_APP_SPOTIFY_API_URL;
 
-const cryptr = new Cryptr(process.env.SECRET1 || 'Secret-Puk-1234')
+const cryptr = new Cryptr(process.env.AUTH_KEY )
 
 async function login(username, password) {
     loggerService.debug(`auth.service - login with username: ${username}`)
