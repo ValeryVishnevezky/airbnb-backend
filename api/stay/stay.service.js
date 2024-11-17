@@ -15,6 +15,7 @@ export const stayService = {
 async function query(filterBy) {
     try {
         const criteria = _buildCriteria(filterBy)
+        console.log("Generated query criteria:", criteria);
         const collection = await dbService.getCollection('stays')
         const stays = await collection.find(criteria).toArray()
         return stays
@@ -139,16 +140,14 @@ function _buildCriteria(filterBy) {
     if (minCapacity) {
         criteria.capacity = { $gte: +minCapacity }
     }
-    if (availableDates?.start && availableDates?.end) {
-        const startDate = new Date(availableDates.start)
-        const endDate = new Date(availableDates.end)
-        const startDateWithoutTime = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
-        const endDateWithoutTime = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())    
-        criteria.availableDates = {
-            $elemMatch: {
-                start: { $lte: startDateWithoutTime },
-                end: { $gte: endDateWithoutTime }
-            }
+    if (availableDates) {
+        if (availableDates.start) {
+            const startDate = new Date(availableDates.start)
+            criteria['availableDates.start'] = { $lte: startDate }
+        }
+        if (availableDates.end) {
+            const endDate = new Date(availableDates.end)
+            criteria['availableDates.end'] = { $gte: endDate }
         }
     }
     if (label) {
