@@ -13,7 +13,6 @@ export const authService = {
     getLoginToken,
     validateToken
 }
-const apiUrl = process.env.REACT_APP_SPOTIFY_API_URL;
 
 const cryptr = new Cryptr(process.env.AUTH_KEY )
 
