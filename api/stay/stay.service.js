@@ -142,10 +142,12 @@ function _buildCriteria(filterBy) {
     if (availableDates?.start && availableDates?.end) {
         const startDate = new Date(availableDates.start)
         const endDate = new Date(availableDates.end)
+        const startDateWithoutTime = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+        const endDateWithoutTime = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())    
         criteria.availableDates = {
             $elemMatch: {
-                start: { $lte: startDate.getDate() },
-                end: { $gte: endDate.getDate() }
+                start: { $lte: startDateWithoutTime },
+                end: { $gte: endDateWithoutTime }
             }
         }
     }
