@@ -20,6 +20,8 @@ async function login(username, password) {
     loggerService.debug(`auth.service - login with username: ${username}`)
 
     const user = await userService.getByUsername(username)
+    console.log('user',user);
+    
     if (!user) return Promise.reject('Invalid username or password')
 
     const match = await bcryptjs.compare(password, user.password)
