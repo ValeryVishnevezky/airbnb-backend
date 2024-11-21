@@ -32,7 +32,7 @@ async function getById(userId) {
 	try {
 		const collection = await dbService.getCollection('users')
 		const user = await collection.findOne({
-			_id: ObjectId.createFromHexString(userId),
+			_id: new ObjectId(userId),
 		})
 		delete user.password
 		return user

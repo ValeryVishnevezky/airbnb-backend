@@ -129,7 +129,7 @@ async function removeStayMsg(stayId, msgId) {
 }
 
 function _buildCriteria(filterBy) {
-    const { place, minCapacity, availableDates, label } = filterBy
+    const { place, adults, children, infants, pets, availableDates, label } = filterBy
     const criteria = {}
     if (place) {
         criteria.$or = [
@@ -137,8 +137,9 @@ function _buildCriteria(filterBy) {
             { 'loc.country': { $regex: place, $options: 'i' } }
         ]
     }
-    if (minCapacity) {
-        criteria.capacity = { $gte: +minCapacity }
+    const totalGuests = (adults || 0) + (children || 0) + (infants || 0) + (pets || 0);
+    if (totalGuests > 0) {
+        criteria.capacity = { $gte: totalGuests };
     }
     if (availableDates) {
         if (availableDates.start) {
