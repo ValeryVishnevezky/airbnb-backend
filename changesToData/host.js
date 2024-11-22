@@ -1,7 +1,6 @@
 import { dbService } from '../services/db.service.js'
 import { ObjectId } from 'mongodb'
 
-// Ваш пользователь
 const user = {
   _id: new ObjectId("6738f80fc2e1f893eb7d74a0"),
   username: "valery",
@@ -52,7 +51,6 @@ async function updateStaysWithUserAsHost() {
         pictureUrl: user.imgUrl
       }
 
-      // Обновляем только те stays, которые в списке
       await collection.updateOne(
         { _id: stay._id },
         { $set: { host: updatedHost } }
