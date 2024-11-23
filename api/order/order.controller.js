@@ -7,6 +7,7 @@ export const orderController = {
   getOrders,
   deleteOrder,
   addOrder,
+  updateOrder,
   getUserOrders,
   getHostOrders
 }
@@ -69,6 +70,23 @@ async function addOrder(req, res) {
     res.status(400).send({ err: 'Failed to add order' })
   }
 }
+
+async function updateOrder(req, res) {
+  const { id } = req.params
+  const { status } = req.body
+  try {
+    if (!status) throw new Error('Failed to find status to update')
+
+    const updatedOrder = await orderService.update(id, status)
+    if (!updatedOrder) throw new Error('Failed to update order')
+
+    res.send(updatedOrder)
+  } catch (err) {
+    loggerService.error('Failed to update order', err)
+    res.status(400).send({ err: 'Failed to update order' })
+  }
+}
+
 
 function _calculateTotalPrice(pricePerNight, guests, nights) {
   return pricePerNight * nights + (guests.adults + guests.children * 0.5) * 20

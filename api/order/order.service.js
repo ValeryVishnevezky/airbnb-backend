@@ -7,6 +7,7 @@ export const orderService = {
   query,
   remove,
   add,
+  update,
   getUserOrders,
   getHostOrders
 }
@@ -116,12 +117,28 @@ async function add(order) {
   }
 }
 
+async function update(orderId, status) {
+  try {
+    const collection = await dbService.getCollection('orders')
+    const result = await collection.updateOne(
+      { _id: ObjectId.createFromHexString(orderId) },
+      { $set: { status: status } }
+    )
+
+    console.log(`Order status updated: ${status}`)
+    return result
+  } catch (err) {
+    loggerService.error('Cannot update order status', err)
+    throw err
+  }
+}
+
 async function getUserOrders(userId) {
   try {
     const collection = await dbService.getCollection('orders')
     const orders = await collection.find({
       userId: ObjectId.createFromHexString(userId)
-    }).toArray() // или .find() для возврата курсора
+    }).toArray()
     return orders
   } catch (err) {
     loggerService.error(`while finding orders for user: ${userId}`, err)
