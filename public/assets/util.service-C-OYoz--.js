@@ -1,0 +1,1 @@
+function o(r=6){for(var t="",a="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",n=0;n<r;n++)t+=a.charAt(Math.floor(Math.random()*a.length));return t}function e(r){return r.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}export{o as m,e as n};

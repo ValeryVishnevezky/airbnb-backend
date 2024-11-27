@@ -1,0 +1,1 @@
+import{j as i,O as s}from"./index-DW-RuR0O.js";function a(){const n=location.pathname.startsWith("/login/signup");return i.jsx("div",{className:"login-page",children:i.jsxs("div",{className:"login-form-container",children:[i.jsx("h1",{className:"title",children:n?"Signup":"Login"}),i.jsx(s,{})]})})}export{a as default};
