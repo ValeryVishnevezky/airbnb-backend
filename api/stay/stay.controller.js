@@ -2,77 +2,78 @@ import { stayService } from './stay.service.js'
 import { loggerService } from '../../services/logger.service.js'
 
 export const stayController = {
-    getStays,
-    getStayById,
-    addStay,
-    updateStay,
-    removeStay,
-    // addStayMsg,
-    // removeStayMsg
+	getStays,
+	getStayById,
+	addStay,
+	updateStay,
+	removeStay
+	// addStayMsg,
+	// removeStayMsg
 }
 
-async function getStays(req, res) {    
-    try {
-        const filterBy = {
-            place: req.query.place || '',
-            minCapacity: req.query.minCapacity ? Number(req.query.minCapacity) : '',
-            availableDates: req.query.availableDates || '',
-            label: req.query.label || '',
-        }
-        const stays = await stayService.query(filterBy)
-        res.send(stays)
-    } catch (err) {
-        loggerService.error('Failed to get stays', err)
-        res.status(500).send({ err: 'Failed to get stays' })
-    }
+async function getStays(req, res) {
+	try {
+		const filterBy = {
+			place: req.query.place || '',
+			minCapacity: req.query.minCapacity ? Number(req.query.minCapacity) : '',
+			availableDates: req.query.availableDates || '',
+			label: req.query.label || '',
+			page: +req.query.page ? Number(req.query.page) : 0,
+			limit: +req.query.limit ? Number(req.query.limit) : 20
+		}
+		const stays = await stayService.query(filterBy)
+		res.send(stays)
+	} catch (err) {
+		loggerService.error('Failed to get stays', err)
+		res.status(500).send({ err: 'Failed to get stays' })
+	}
 }
 
 async function getStayById(req, res) {
-    try {
-        const stayId = req.params.id
-        const stay = await stayService.getById(stayId)
-        res.send(stay)
-    } catch (err) {
-        loggerService.error('Failed to get stay', err)
-        res.status(500).send({ err: 'Failed to get stay' })
-    }
+	try {
+		const stayId = req.params.id
+		const stay = await stayService.getById(stayId)
+		res.send(stay)
+	} catch (err) {
+		loggerService.error('Failed to get stay', err)
+		res.status(500).send({ err: 'Failed to get stay' })
+	}
 }
 
 async function addStay(req, res) {
-    const { loggedinUser } = req
-    try {
-        const stay = req.body
-        stay.owner = loggedinUser
-        const addedStay = await stayService.add(stay)
-        res.send(addedStay)
-    } catch (err) {
-        loggerService.error('Failed to add stay', err)
-        res.status(500).send({ err: 'Failed to add stay' })
-    }
+	const { loggedinUser } = req
+	try {
+		const stay = req.body
+		stay.owner = loggedinUser
+		const addedStay = await stayService.add(stay)
+		res.send(addedStay)
+	} catch (err) {
+		loggerService.error('Failed to add stay', err)
+		res.status(500).send({ err: 'Failed to add stay' })
+	}
 }
 
 async function updateStay(req, res) {
-    try {
-        const stay = req.body
-        const updatedStay = await stayService.update(stay)
-        res.send(updatedStay)
-    } catch (err) {
-        loggerService.error('Failed to update stay', err)
-        res.status(500).send({ err: 'Failed to update stay' })
-    }
+	try {
+		const stay = req.body
+		const updatedStay = await stayService.update(stay)
+		res.send(updatedStay)
+	} catch (err) {
+		loggerService.error('Failed to update stay', err)
+		res.status(500).send({ err: 'Failed to update stay' })
+	}
 }
 
 async function removeStay(req, res) {
-    try {
-        const stayId = req.params.id
-        await stayService.remove(stayId)
-        res.send()
-    } catch (err) {
-        loggerService.error('Failed to remove stay', err)
-        res.status(500).send({ err: 'Failed to remove stay' })
-    }
+	try {
+		const stayId = req.params.id
+		await stayService.remove(stayId)
+		res.send()
+	} catch (err) {
+		loggerService.error('Failed to remove stay', err)
+		res.status(500).send({ err: 'Failed to remove stay' })
+	}
 }
-
 
 // async function addStayMsg(req, res) {
 //     const { loggedinUser } = req
