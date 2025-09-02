@@ -19,7 +19,7 @@ async function getStays(req, res) {
 			availableDates: req.query.availableDates || '',
 			label: req.query.label || '',
 			page: +req.query.page ? Number(req.query.page) : 0,
-			limit: +req.query.limit ? Number(req.query.limit) : 20
+			limit: +req.query.limit ? Number(req.query.limit) : 10
 		}
 		const stays = await stayService.query(filterBy)
 		res.send(stays)
