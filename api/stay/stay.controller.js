@@ -84,8 +84,10 @@ async function removeStay(req, res) {
 	}
 }
 
-function getOptimizedUrl(url, width = 600, quality = 70) {
-	return `${url}&im_w=${width}&im_q=${quality}&im_format=webp`
+function getOptimizedUrl(url, width = 600, quality = 70, format = 'webp') {
+  const parts = url.split('/upload/')
+  if (parts.length < 2) return url
+  return `${parts[0]}/upload/w_${width},q_${quality},f_${format}/${parts[1]}`
 }
 
 // async function addStayMsg(req, res) {
